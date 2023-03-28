@@ -1,9 +1,9 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/Breeze/InputError.vue';
+import InputLabel from '@/Components/Breeze/InputLabel.vue';
+import PrimaryButton from '@/Components/Breeze/PrimaryButton.vue';
+import TextInput from '@/Components/Breeze/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -28,7 +28,7 @@ const submit = () => {
             link that will allow you to choose a new one.
         </div>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+        <div v-if="status" class="mb-4 text-sm font-medium text-green-600 dark:text-green-400">
             {{ status }}
         </div>
 
@@ -39,7 +39,7 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="block w-full mt-1"
                     v-model="form.email"
                     required
                     autofocus

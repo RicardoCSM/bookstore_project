@@ -1,10 +1,10 @@
 <script setup>
-import DangerButton from '@/Components/DangerButton.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Modal from '@/Components/Modal.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import DangerButton from '@/Components/Breeze/DangerButton.vue';
+import InputError from '@/Components/Breeze/InputError.vue';
+import InputLabel from '@/Components/Breeze/InputLabel.vue';
+import Modal from '@/Components/Breeze/Modal.vue';
+import SecondaryButton from '@/Components/Breeze/SecondaryButton.vue';
+import TextInput from '@/Components/Breeze/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
@@ -69,7 +69,7 @@ const closeModal = () => {
                         ref="passwordInput"
                         v-model="form.password"
                         type="password"
-                        class="mt-1 block w-3/4"
+                        class="block w-3/4 mt-1"
                         placeholder="Password"
                         @keyup.enter="deleteUser"
                     />
@@ -77,7 +77,7 @@ const closeModal = () => {
                     <InputError :message="form.errors.password" class="mt-2" />
                 </div>
 
-                <div class="mt-6 flex justify-end">
+                <div class="flex justify-end mt-6">
                     <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
 
                     <DangerButton

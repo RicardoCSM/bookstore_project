@@ -27,7 +27,7 @@ class AuthorController extends Controller
     {
         $repository = new AuthorRepository($this->author); 
 
-        $authors = $filter->handle($repository, $request, 'books');
+        $authors = $filter->handle($repository, $request, ['books']);
 
         return response()->json($authors, 200);
     }

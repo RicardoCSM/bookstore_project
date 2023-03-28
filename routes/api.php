@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthorBookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookImageController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\SanctumController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,21 +25,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::apiResource('/books', BookController::class);
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/books', BookController::class);
     Route::apiResource('/authors', AuthorController::class);
     Route::apiResource('/publishers', PublisherController::class);
     Route::apiResource('/author_books', AuthorBookController::class);
+    Route::apiResource('/book_images', BookImageController::class);
 });
 
-Route::post('/login', function(Request $request) {
-    $credencials = $request->only(['email', 'password']);
-    if (Auth::attempt($credencials) === false) {
-        return response()->json('Unauthorized', 401);
-    }
-    $user = Auth::user();
-    $user->tokens()->delete();
-    $token = $user->createToken('token', ['books:store,delete']);
-
-    return response()->json($token->plainTextToken);
-});
+Route::post('/login', [SanctumController::class, 'login']);

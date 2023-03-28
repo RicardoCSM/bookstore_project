@@ -27,7 +27,7 @@ class PublisherController extends Controller
     {
         $repository = new PublisherRepository($this->publishers); 
 
-        $publishers = $filter->handle($repository, $request, 'books');
+        $publishers = $filter->handle($repository, $request, ['books']);
 
         return response()->json($publishers, 200);
     }

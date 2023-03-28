@@ -27,8 +27,8 @@ class BookController extends Controller
     {
         $repository = new BookRepository($this->book); 
 
-        $books = $filter->handle($repository, $request, ['publisher', 'authors']);
-
+        $books = $filter->handle($repository, $request, ['publisher', 'authors', 'images']);
+        
         return response()->json($books, 200);
     }
 
@@ -45,7 +45,7 @@ class BookController extends Controller
      */
     public function show(int $book): JsonResponse
     {
-        $book = $this->book->with('publisher', 'authors')->find($book);
+        $book = $this->book->with('publisher', 'authors', 'images')->find($book);
         if($book === null) {
             return response()->json(['message' => 'Book not found'], 404);
         }
