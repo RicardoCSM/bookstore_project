@@ -26,12 +26,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/books', BookController::class);
+Route::apiResource('/book_images', BookImageController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/authors', AuthorController::class);
     Route::apiResource('/publishers', PublisherController::class);
     Route::apiResource('/author_books', AuthorBookController::class);
-    Route::apiResource('/book_images', BookImageController::class);
 });
 
 Route::post('/login', [SanctumController::class, 'login']);

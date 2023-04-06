@@ -37,7 +37,6 @@ class BookImageController extends Controller
     {
         $image = $request->file('image');
         $image_urn = $image->store('images/books', 'public');
-
         $book_images = $this->book_images->create([
             'book_id' => $request->book_id,
             'image' => $image_urn

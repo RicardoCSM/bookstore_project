@@ -1,5 +1,5 @@
 <template>
-    <router-link to="link" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white" exact>{{text}}</router-link>
+    <a :href="link" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white" exact>{{text}}</a>
 </template>
 
 <script lang="ts">
@@ -19,9 +19,3 @@
     }
 
 </script>
-
-<style scoped>
-  .router-link-active {
-    color: #fff;
-  }
-</style>

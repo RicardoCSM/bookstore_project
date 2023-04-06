@@ -30,7 +30,7 @@ abstract class AbstractRepository {
     }
 
     public function getResult() {
-        return $this->model->paginate(10);
+        return $this->model->paginate(12);
     }
 
 }
