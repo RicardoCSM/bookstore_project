@@ -31,7 +31,7 @@
         methods: {
             getBookImage(bookId: number) {
                 const bookImage = this.bookImages.find(image => image.book_id === bookId);
-                const imagePath = bookImage && bookImage.image ? `/storage/${bookImage.image}` : 'https://via.placeholder.com/150x150';
+                const imagePath = bookImage && bookImage.image ? `/storage/${bookImage.image}` : 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg';
                 return imagePath;
             }
         }

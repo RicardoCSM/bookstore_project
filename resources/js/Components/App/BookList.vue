@@ -53,6 +53,12 @@
     },
     methods: {
       fetchBooks(page = 1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        
+        this.filter = urlParams.get('filter') ?? '';
+
+        console.log(this.filter);
         axios
           .get('/api/books', {
             params: {

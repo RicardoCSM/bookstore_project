@@ -3,11 +3,11 @@ import NavBar from '@/Components/App/NavBar.vue';
 import Footer from '@/Components/App/Footer.vue';
 import BookList from '@/Components/App/BookList.vue';
 
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Book" />
+    <Head title="Books" />
 
     <div
         class="relative min-h-screen bg-gray-900 bg-center selection:bg-blue-500 selection:text-white"

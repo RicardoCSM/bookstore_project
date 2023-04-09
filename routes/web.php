@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Book;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,10 @@ Route::get('/', function () {
 Route::get('/books', function () {
     return Inertia::render('Books');
 })->name('books');
+
+Route::get('/books/{id}', function ($id) {
+    return Inertia::render('Book', ['id' => $id,]);
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
