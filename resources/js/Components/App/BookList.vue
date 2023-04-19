@@ -17,65 +17,70 @@
       </div>
     </div>
     <div class="flex justify-center mt-8">
-      <pagination :current-page="currentPage" :last-page="lastPage" @page-changed="fetchBooks"></pagination>
+      <Pagination :current-page="currentPage" :last-page="lastPage" @page-changed="fetchBooks" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+  import { defineComponent, ref, onMounted, watchEffect } from 'vue'
   import axios from 'axios'
   import IBook from '@/Interfaces/IBook'
   import BookListImages from './BookListImages.vue'
-  import pagination from './PaginationComponent.vue'
+  import Pagination from './Pagination.vue'
 
-  export default {
+  export default defineComponent({
     components: {
       BookListImages,
-      pagination
+      Pagination
     },
-    data(): { 
-      books: IBook[],
-      currentPage: number,
-      lastPage: number,
-      perPage: number,
-      filter: string;
-    } {
-      return {
-        books: [],
-        currentPage: 1,
-        lastPage: 1,
-        perPage: 10,
-        filter: ''
-      }
-    },
-    mounted() {
-      this.fetchBooks()
-    },
-    methods: {
-      fetchBooks(page = 1) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        
-        this.filter = urlParams.get('filter') ?? '';
+    setup() {
+      const books = ref<IBook[]>([])
+      const currentPage = ref<number>(1)
+      const lastPage = ref<number>(1)
+      const perPage = ref<number>(10)
+      const filter = ref<string>('')
 
-        console.log(this.filter);
+      const fetchBooks = (page = 1) => {
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+
+        filter.value = urlParams.get('filter') ?? ''
+        console.log(filter.value)
         axios
           .get('/api/books', {
             params: {
-              filter: 'name:like:%' + this.filter + '%',
+              filter: 'name:like:%' + filter.value + '%',
               page: page,
-              per_page: this.perPage,
+              per_page: perPage.value,
             }
           })
           .then(response => {
-            this.books = response.data.data
-            this.currentPage = response.data.current_page
-            this.lastPage = response.data.last_page
+            books.value = response.data.data
+            currentPage.value = response.data.current_page
+            lastPage.value = response.data.last_page
           })
           .catch(error => {
             console.log(error)
           })
       }
+
+      onMounted(() => {
+        fetchBooks()
+      })
+
+      watchEffect(() => {
+        fetchBooks()
+      })
+
+      return {
+        books,
+        currentPage,
+        lastPage,
+        perPage,
+        filter,
+        fetchBooks,
+      }
     }
-  }
+  })
 </script>

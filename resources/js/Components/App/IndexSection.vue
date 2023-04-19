@@ -14,11 +14,11 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
 <script lang="ts">
-  export default {
-    name: 'BookSection',
-  }
+  import { defineComponent} from 'vue'
+
+  export default defineComponent({});
 </script>
   

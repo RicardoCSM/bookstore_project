@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
+    import { defineComponent } from 'vue';
 
-    export default {
-        name: "app-navbar-link",
+    export default defineComponent({
         props: {
             link: {
                 type: String,
@@ -16,6 +16,6 @@
                 required: true
             },
         },
-    }
+    })
 
 </script>

@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-    import NavBarLogo from '@/Components/App/NavBarLogo.vue';
-    import NavBarMenu from '@/Components/App/NavBarMenu.vue';
+    import { defineComponent} from 'vue'
+    import NavBarLogo from '@/Components/App/NavBarLogo.vue'
+    import NavBarMenu from '@/Components/App/NavBarMenu.vue'
 
-    export default {
-        name: "app-navbar-logo",
+    export default defineComponent({
         components: {
             NavBarLogo,
             NavBarMenu
         }
-    }
+    })
 </script>

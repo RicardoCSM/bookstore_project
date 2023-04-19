@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@glidejs/glide": "^3.6.0",
+        "laravel-vue-pagination": "^4.1.0",
         "vue-router": "^4.1.6"
     }
 }

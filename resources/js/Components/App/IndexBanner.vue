@@ -13,9 +13,9 @@
   
   
 <script lang="ts">
-  export default {
-    name: 'app-index-banners'
-  }
+  import { defineComponent} from 'vue'
+
+  export default defineComponent({});
 </script>
   
 <style scoped>

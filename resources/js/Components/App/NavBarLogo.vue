@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: "app-navbar-logo"
-  }
+  import { defineComponent} from 'vue'
+
+  export default defineComponent({});
 </script>

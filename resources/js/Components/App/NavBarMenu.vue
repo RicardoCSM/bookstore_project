@@ -21,27 +21,27 @@
 </template>
 
 <script lang="ts">
+    import { computed, defineComponent, ref } from 'vue'
     import NavBarSearchForm from './NavBarSearchForm.vue'
     import NavBarMenuLink from './NavBarMenuLink.vue'
 
-    export default {
+    export default defineComponent({
         name: "app-navbar-menu",
         components: {
             NavBarMenuLink,
             NavBarSearchForm
         },
-        data() { 
-            return { showMenu: false } 
-        },
-        computed: {
-            showMenu() {
-                return this.$data.showMenu
+        setup() {
+            const showMenu = ref(false)
+
+            const toggleNavbar = () => {
+                showMenu.value = !showMenu.value
+            }
+
+            return {
+                showMenu,
+                toggleNavbar
             }
         },
-        methods: {
-            toggleNavbar() {
-                this.$data.showMenu = !this.$data.showMenu
-            }
-        }
-    }
+    })
 </script>
