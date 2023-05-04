@@ -23,7 +23,7 @@ class OrderController extends Controller
     {
         $user_id = auth()->id();
 
-        $orders = $this->order->where('user_id', $user_id)->get();
+        $orders = $this->order->with('book', 'address')->where('user_id', $user_id)->get();
 
         return response()->json($orders, 200);
     }
@@ -41,11 +41,13 @@ class OrderController extends Controller
      */
     public function show(int $order): JsonResponse
     {
-        $order = $this->order->find($order);
+        $order = $this->order->with('book', 'address')->find($order);
         if($order === null) {
             return response()->json(['message' => 'Order not found'], 404);
         }
-        $this->authorize('show', $order);
+        if($order->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         return response()->json($order, 201);
     }
 
@@ -58,8 +60,9 @@ class OrderController extends Controller
         if($order === null) {
             return response()->json(['message' => 'Order not found'], 404);
         }
-        $this->authorize('update', $order);
-
+        if($order->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         $order->update($request->all());
         
         return response()->json($order, 200);
@@ -74,7 +77,9 @@ class OrderController extends Controller
         if($order === null) {
             return response()->json(['message' => 'Order not found'], 404);
         }
-        $this->authorize('destroy', $order);
+        if($order->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         $order->delete();
         return response()->json(['message' => 'Order was removed'], 200);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthorBookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\BookImageController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\SanctumController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +31,8 @@ Route::get('/books/{id}', [BookController::class, 'show']);
 
 Route::get('/book_images', [BookImageController::class, 'index']);
 Route::get('/book_images', [BookImageController::class, 'show']);
-
-Route::middleware('auth:sanctum')->group(function () {
-
+    
+Route::middleware('admin')->group(function() {
     Route::post('/books', [BookController::class, 'store']);
     Route::put('/books', [BookController::class, 'update']);
     Route::patch('/books', [BookController::class, 'update']);
@@ -47,8 +46,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/authors', AuthorController::class);
     Route::apiResource('/publishers', PublisherController::class);
     Route::apiResource('/author_books', AuthorBookController::class);
-
-    Route::apiResource('/addresses', AddressController::class);
 });
 
-Route::post('/login', [SanctumController::class, 'login']);
+Route::apiResource('/addresses', AddressController::class);
+Route::apiResource('/orders', OrderController::class);
+
+Route::post('/login', [SanctumController::class, 'login'])->name('api.login');

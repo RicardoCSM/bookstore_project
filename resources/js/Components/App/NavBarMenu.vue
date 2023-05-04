@@ -12,7 +12,12 @@
         </div>
         <div class="mt-4 sm:items-center sm:ml-6 sm:mt-0 sm:flex">
             <NavBarSearchForm />
-            <div class="flex mt-3 sm:mt-0">
+
+            <div v-if="$page.props.auth.user" class="flex justify-center mt-3 sm:mt-0">
+                <NavBarDropdown :button-label="$page.props.auth.user.name" />
+            </div>
+
+            <div v-else class="flex justify-center mt-3 ml-1 sm:mt-0">
                 <a href="/login" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white">Login</a>
                 <a href="/register" class="px-3 py-2 ml-4 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">Register</a>
             </div>
@@ -21,18 +26,22 @@
 </template>
 
 <script lang="ts">
-    import { computed, defineComponent, ref } from 'vue'
+    import { defineComponent, ref } from 'vue'
     import NavBarSearchForm from './NavBarSearchForm.vue'
     import NavBarMenuLink from './NavBarMenuLink.vue'
+    import NavBarDropdown from './NavBarDropdown.vue'
+    import { usePage } from '@inertiajs/vue3'
 
     export default defineComponent({
         name: "app-navbar-menu",
         components: {
             NavBarMenuLink,
-            NavBarSearchForm
+            NavBarSearchForm,
+            NavBarDropdown
         },
         setup() {
             const showMenu = ref(false)
+            const page = usePage()
 
             const toggleNavbar = () => {
                 showMenu.value = !showMenu.value
@@ -40,7 +49,8 @@
 
             return {
                 showMenu,
-                toggleNavbar
+                toggleNavbar,
+                page
             }
         },
     })

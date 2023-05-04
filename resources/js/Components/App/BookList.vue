@@ -38,7 +38,7 @@
       const books = ref<IBook[]>([])
       const currentPage = ref<number>(1)
       const lastPage = ref<number>(1)
-      const perPage = ref<number>(10)
+      const perPage = ref<number>(12)
       const filter = ref<string>('')
 
       const fetchBooks = (page = 1) => {

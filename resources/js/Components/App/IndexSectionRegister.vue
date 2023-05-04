@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-center py-6">
+    <div class="flex items-center justify-center py-6 bg-gray-800 bg-opacity-90">
       <div class="flex flex-col w-full lg:w-3/4 xl:w-2/3 2xl:w-1/2 md:flex-row">
         <div class="flex items-center justify-center w-full md:w-1/2">
           <img src="/img/index_book.png" alt="Book Cover" class="w-1/2 max-w-md rounded-lg">

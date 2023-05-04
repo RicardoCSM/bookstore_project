@@ -4,5 +4,6 @@ export default interface IBook {
     num_pages: number,
     name: string,
     price: string,
-    publication_date: string
-  }
+    publication_date: string,
+    authors: []
+}

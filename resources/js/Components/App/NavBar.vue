@@ -1,6 +1,6 @@
 <template>
-    <div class="font-sans antialiased" id="app">
-        <nav class="flex flex-wrap items-center justify-between p-4 bg-gray-800">
+    <div class="font-sans antialiased">
+        <nav class="flex flex-wrap items-center justify-between p-4 bg-gray-800 bg-opacity-90">
             <NavBarLogo />
             <NavBarMenu />
         </nav>

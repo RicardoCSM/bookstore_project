@@ -25,13 +25,25 @@ Route::get('/books', function () {
     return Inertia::render('Books');
 })->name('books');
 
+Route::get('/orders', function () {
+    return Inertia::render('Orders');
+})->name('orders');
+
 Route::get('/books/{id}', function ($id) {
     return Inertia::render('Book', ['id' => $id,]);
 });
 
+Route::get('/orders/{id}', function ($id) {
+    return Inertia::render('Order', ['id' => $id,]);
+});
+
+Route::get('/make_order/{book_id}', function ($book_id) {
+    return Inertia::render('MakeOrder', ['id' => $book_id]);
+})->middleware(['auth', 'verified']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'admin', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

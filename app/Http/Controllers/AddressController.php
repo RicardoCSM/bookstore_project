@@ -45,7 +45,9 @@ class AddressController extends Controller
         if($address === null) {
             return response()->json(['message' => 'Address not found'], 404);
         }
-        $this->authorize('show', $address);
+        if($address->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         return response()->json($address, 201);
     }
 
@@ -58,8 +60,9 @@ class AddressController extends Controller
         if($address === null) {
             return response()->json(['message' => 'Address not found'], 404);
         }
-        $this->authorize('update', $address);
-
+        if($address->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         $address->update($request->all());
         
         return response()->json($address, 200);
@@ -74,7 +77,9 @@ class AddressController extends Controller
         if($address === null) {
             return response()->json(['message' => 'Address not found'], 404);
         }
-        $this->authorize('destroy', $address);
+        if($address->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
         $address->delete();
         return response()->json(['message' => 'Address was removed'], 200);
     }
