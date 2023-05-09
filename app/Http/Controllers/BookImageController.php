@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 class BookImageController extends Controller
 {
     protected $book_images;
-    protected $repository;
 
     public function __construct(BookImage $book_images)
     {

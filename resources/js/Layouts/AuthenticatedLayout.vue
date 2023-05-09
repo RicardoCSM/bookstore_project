@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import NavBar from '@/Components/App/NavBar.vue';
+import NavBar from '@/Components/App/LayoutComponents/NavBar.vue';
 
 </script>
 

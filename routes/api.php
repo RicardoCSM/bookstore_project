@@ -30,18 +30,18 @@ Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/{id}', [BookController::class, 'show']);
 
 Route::get('/book_images', [BookImageController::class, 'index']);
-Route::get('/book_images', [BookImageController::class, 'show']);
+Route::get('/book_images/{id}', [BookImageController::class, 'show']);
     
 Route::middleware('admin')->group(function() {
     Route::post('/books', [BookController::class, 'store']);
-    Route::put('/books', [BookController::class, 'update']);
-    Route::patch('/books', [BookController::class, 'update']);
-    Route::delete('/books', [BookController::class, 'destroy']);
+    Route::put('/books/{id}', [BookController::class, 'update']);
+    Route::patch('/books/{id}', [BookController::class, 'update']);
+    Route::delete('/books/{id}', [BookController::class, 'destroy']);
 
     Route::post('/book_images', [BookImageController::class, 'store']);
-    Route::put('/book_images', [BookImageController::class, 'update']);
-    Route::patch('/book_images', [BookImageController::class, 'update']);
-    Route::delete('/book_images', [BookImageController::class, 'destroy']);
+    Route::put('/book_images/{id}', [BookImageController::class, 'update']);
+    Route::patch('/book_images/{id}', [BookImageController::class, 'update']);
+    Route::delete('/book_images/{id}', [BookImageController::class, 'destroy']);
 
     Route::apiResource('/authors', AuthorController::class);
     Route::apiResource('/publishers', PublisherController::class);

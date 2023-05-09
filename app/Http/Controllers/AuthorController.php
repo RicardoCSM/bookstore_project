@@ -9,15 +9,17 @@ use App\Repositories\AuthorRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Actions\Filter;
-
+use App\Models\AuthorBook;
 
 class AuthorController extends Controller
 {
     protected $author;
+    protected $authorBooks;
 
-    public function __construct(Author $author)
+    public function __construct(Author $author, AuthorBook $authorBook)
     {
         $this->author = $author;
+        $this->authorBooks = $authorBook;
     }
 
     /**
@@ -68,12 +70,13 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $author): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $author = $this->author->find($author);
+        $author = $this->author->find($id);
         if($author === null) {
             return response()->json(['message' => 'Author not found'], 404);
         }
+        $this->authorBooks->where('author_id', $id)->delete();
         $author->delete();
         return response()->json(['message' => 'Author was removed'], 200);
     }

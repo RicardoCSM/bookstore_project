@@ -23,7 +23,7 @@ class OrderController extends Controller
     {
         $user_id = auth()->id();
 
-        $orders = $this->order->with('book', 'address')->where('user_id', $user_id)->get();
+        $orders = $this->order->with('book', 'address')->where('user_id', $user_id)->paginate(6);
 
         return response()->json($orders, 200);
     }

@@ -1,3 +1,5 @@
+import IAuthor from "./IAuthor";
+
 export default interface IBook {
     id: number,
     isbn_13: string,
@@ -5,5 +7,7 @@ export default interface IBook {
     name: string,
     price: string,
     publication_date: string,
-    authors: []
+    publisher_id: number,
+    publisher: {name: string},
+    authors: IAuthor[]
 }

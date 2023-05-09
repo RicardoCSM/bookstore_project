@@ -37,18 +37,53 @@ Route::get('/orders/{id}', function ($id) {
     return Inertia::render('Order', ['id' => $id,]);
 });
 
-Route::get('/make_order/{book_id}', function ($book_id) {
-    return Inertia::render('MakeOrder', ['id' => $book_id]);
-})->middleware(['auth', 'verified']);
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'admin', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/make_order/{book_id}', function ($book_id) {
+        return Inertia::render('MakeOrder', ['id' => $book_id]);
+    });
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('/add_book', function () {
+        return Inertia::render('AdminAdd', ['content' => 1]);
+    });
+
+    Route::get('/add_author', function () {
+        return Inertia::render('AdminAdd', ['content' => 2]);
+    });
+
+    Route::get('/add_publisher', function () {
+        return Inertia::render('AdminAdd', ['content' => 3]);
+    });
+
+    
+    Route::get('/add_book_author/{id}', function ($book_id) {
+        return Inertia::render('AdminAdd', ['content' => 4, 'id' => $book_id]);
+    });
+
+    
+    Route::get('/add_image/{id}', function ($book_id) {
+        return Inertia::render('AdminAdd', ['content' => 5, 'id' => $book_id]);
+    });
+
+    Route::get('/edit_book/{id}', function ($book_id) {
+        return Inertia::render('AdminEdit', ['content' => 1, 'id' => $book_id]);
+    });
+
+    Route::get('/edit_author/{id}', function ($author_id) {
+        return Inertia::render('AdminEdit', ['content' => 2, 'id' => $author_id]);
+    });
+
+    Route::get('/edit_publisher/{id}', function ($publisher_id) {
+        return Inertia::render('AdminEdit', ['content' => 3, 'id' => $publisher_id]);
+    });
 });
 
 require __DIR__.'/auth.php';

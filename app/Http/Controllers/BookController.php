@@ -9,15 +9,22 @@ use App\Repositories\BookRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Actions\Filter;
+use App\Models\AuthorBook;
+use App\Models\BookImage;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
 
     protected $book;
+    protected $authorBooks;
+    protected $bookImages;
 
-    public function __construct(Book $book)
+    public function __construct(Book $book, AuthorBook $authorBooks, BookImage $bookImages)
     {
         $this->book = $book;
+        $this->authorBooks = $authorBooks;
+        $this->bookImages = $bookImages;
     }
 
     /**
@@ -68,12 +75,20 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $book): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $book = $this->book->find($book);
+        $book = $this->book->find($id);
         if($book === null) {
             return response()->json(['message' => 'Book not found'], 404);
         }
+        $this->authorBooks->where('book_id', $id)->delete();
+        $bookImages = $this->bookImages->where('book_id', $id)->get();
+
+        foreach($bookImages as $book_image) {
+            Storage::disk('public')->delete($book_image->image);
+            $book_image->delete();
+        }
+
         $book->delete();
         return response()->json(['message' => 'Book was removed'], 200);
     }

@@ -15,7 +15,7 @@
       <div class="mt-8">
         <p class="mb-2 text-lg font-medium text-white">Author(s):</p>
         <ul class="pl-4 text-gray-300 list-disc">
-          <li v-for="author in book.authors" :key="author.id">{{ author.name }}</li>
+          <li v-for="author in (book.authors as IAuthor[])" :key="author.id">{{ author.name }}</li>
         </ul>
         <p class="mt-4 mb-2 text-lg font-medium text-white">ISBN-13: {{ book.isbn_13 }}</p>
       </div>
@@ -24,36 +24,37 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import BookListImages from './BookListImages.vue';
-  import axios from 'axios';
+import { defineComponent, ref } from 'vue';
+import BookListImages from './BookListImages.vue';
+import { fetchBook } from '@/Utils/bookApi'
+import IBook from '@/Interfaces/IBook'
+import IAuthor from '@/Interfaces/IAuthor';
 
-  export default defineComponent({
-    components: {
-      BookListImages,
-    },
-    props: {
-      id: Number,
-    },
-    setup(props) {
-      const book = ref({});
+export default defineComponent({
+  components: {
+    BookListImages,
+  },
+  props: {
+    id: Number,
+  },
+  setup(props) {
+    const book = ref<IBook>({} as IBook);
 
-      const fetchBook = () => {
-        axios
-          .get(`/api/books/${props.id}`)
-          .then(response => {
-            book.value = response.data;
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      };
+    const fetchBookData = () => {
+      fetchBook(props.id)
+        .then(bookData => {
+          book.value = bookData
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    };
 
-      fetchBook();
+    fetchBookData();
 
-      return {
-        book,
-      };
-    },
-  });
+    return {
+      book,
+    };
+  },
+});
 </script>

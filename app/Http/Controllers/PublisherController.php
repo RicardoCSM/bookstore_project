@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Filter;
 use App\Http\Requests\Api\StorePublisherRequest;
 use App\Http\Requests\Api\UpdatePublisherRequest;
+use App\Models\Book;
 use App\Models\Publisher;
 use App\Repositories\PublisherRepository;
 use Illuminate\Http\JsonResponse;
@@ -14,10 +15,12 @@ class PublisherController extends Controller
 {
     
     protected $publishers;
+    protected $books;
 
-    public function __construct(Publisher $publishers)
+    public function __construct(Publisher $publishers, Book $book)
     {
         $this->publishers = $publishers;
+        $this->books = $book;
     }
 
     /**
@@ -49,7 +52,7 @@ class PublisherController extends Controller
         if($publisher === null) {
             return response()->json(['message' => 'Publisher not found'], 404);
         }
-        return $publisher;
+        return response()->json($publisher, 201);
     }
 
     /**
@@ -68,12 +71,13 @@ class PublisherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $publisher): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $publisher = $this->publishers->find($publisher);
+        $publisher = $this->publishers->find($id);
         if($publisher === null) {
             return response()->json(['message' => 'Publisher not found'], 404);
         }
+        $this->books->where('publisher_id', $id)->update(['publisher_id' => null]);
         $publisher->delete();
         return response()->json(['message' => 'Publisher was removed'], 200);
     }
