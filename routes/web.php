@@ -21,6 +21,10 @@ Route::get('/', function () {
     return Inertia::render('Index');
 })->name('index');
 
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
+
 Route::get('/books', function () {
     return Inertia::render('Books');
 })->name('books');
