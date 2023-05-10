@@ -50,6 +50,11 @@ If you prefer, run the migrations seeding the database, this way, in addition to
 email: admin@admin.com #admin login informations
 password: admin0123
 ```
+Lastly, you should build the Front-end
+
+```bash
+./vendor/bin/sail npm run build # build the application
+```
 
 The application can be accessed at [http://localhost](http://localhost).
 
