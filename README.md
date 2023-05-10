@@ -8,7 +8,7 @@ The Night Owl is a Laravel application to a fictional Bookstore. It was made wit
 
 ## Installation
 
-The Night Owl was made using Laravel Sail with the framework in version 10 and the Laravel Breeze Inertia to the Auth. In addition, the MySql database was used on port 3306 and Redis on the por 6379, to the Front-end was used Vue 3 with the composition API.
+The Night Owl was made using Laravel Sail with the framework in version 10 and the Laravel Breeze Inertia to the Auth. In addition, the MySql database was used on port 3306 and Redis on the port 6379, to the Front-end was used Vue 3 with the composition API.
 
 Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/10.x/installation)
 
